@@ -1,0 +1,33 @@
+p {
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 0;
+}
+
+.rewarding {
+    margin-top: 80px;
+    padding: 10px;
+}
+
+.dust_help {
+    color: rgb(235, 147, 16);
+}
+
+.earnby {
+    background-color: rgba(0, 0, 0, 0.4)  !important;
+    height: 100%;
+    margin: 5px;
+    padding: 20px;
+}
+
+.head_title {
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    color:rgb(235, 147, 16);
+    margin: 10px;
+    
+}
+
+ul {
+
+}

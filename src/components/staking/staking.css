@@ -1,0 +1,27 @@
+p, ul {
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+li font {
+    color:rgb(235, 147, 16);
+}
+
+.staking {
+    margin-top: 80px;
+}
+
+.staking_content {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    margin: 5px;
+}
+
+.rewards_to_collect {
+    margin-top: 10px;
+}
