@@ -8,8 +8,8 @@ const warriors = 'images/warriors.png'
 
 function Advertise() {
 
-    const onClickButButton = () => {
-        alert();
+    const onClickButton = () => {
+        console.log('null');
     }
     
     return (
@@ -21,7 +21,7 @@ function Advertise() {
                     <div >
                         <p>Stake DUST, earn up to </p>
                         <p className='apy_value'>234.81% APY</p>
-                        <Button icon = {'boxArrowUpRight'} value = 'Buy DUST' onClick = {onClickButButton}/>
+                        <Button icon = {'boxArrowUpRight'} value = 'Buy DUST' onClick = {onClickButton}/>
                     </div>
                     </Col>
                     <Col lg={8}>

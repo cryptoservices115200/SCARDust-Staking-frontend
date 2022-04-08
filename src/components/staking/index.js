@@ -1,15 +1,18 @@
 import "./staking.css";
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useWeb3React } from '@web3-react/core';
 import Button from '../samples/buttons'
-
+import WalletConnect from '../../utils/connectwallet';
 
 
 const StakingIcon = 'images/girl_bullet.png';
 
 function Staking() {
 
-    const onClickButButton = () => {
+    const { account, chainId, activate, deactivate } = useWeb3React();
+
+    const onClickButton = () => {
         alert();
     }
     
@@ -35,15 +38,35 @@ function Staking() {
                     <div className='your_contract'>
                         <p>Your Stake</p>
                         <div className='staking_content'>
-                            <p>Connect to your wallet to view</p>
-                            <Button  value = 'connect wallet' onClick = {onClickButButton}/>
+                            {account ? (
+                                <>
+                                    <p>Do a operation for Stake please...</p>
+                                    <Button  value = "Stake" onClick = {onClickButton}/>
+                                </>
+                            ) : (
+                                    <>
+                                        <p>Connect to your wallet to view</p>
+                                        {/* <Button  value = 'connect wallet' onClick = {onClickButButton}/> */}
+                                        <WalletConnect/>
+                                    </>
+                            )}
                         </div>
                     </div>
                     <div className='rewards_to_collect'>
                         <p>Rewards to Collect</p>
                         <div className='staking_content'>
-                            <p>Connect to your wallet to view</p>
-                            <Button  value = 'connect wallet' onClick = {onClickButButton}/>
+                        {account ? (
+                                <>
+                                    <p>Do a operation for Reward please...</p>
+                                    <Button  value = "Reward" onClick = {onClickButton}/>
+                                </>
+                            ) : (
+                                <>
+                                    <p>Connect to your wallet to view</p>
+                                    {/* <Button  value = 'connect wallet' onClick = {onClickButButton}/> */}
+                                    <WalletConnect/>
+                                </>
+                            )}
                         </div> 
                     </div>
                     </Col>

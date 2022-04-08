@@ -676,13 +676,13 @@ select:focus {
     font-size: 13px;
 }
 
+/* underline sky color of menu */
 .navbar-nav>li>a:after {
     content: '';
     display: block;
     width: 0;
     height: 2px;
     background: #60CFFF;
-    /* opacity: 0; */
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -692,11 +692,27 @@ select:focus {
     transition: all 0.3s ease-in-out;
 }
 
+
+
 .navbar-nav>li.current-menu-item>a,
 .navbar-nav>li>a:hover,
 .navbar-nav>li.menu-item-has-children:hover>a {
     color: #60CFFF;
 }
+
+.navbar-nav>li>a:hover  + .headerspecial {
+    color: #60CFFF;
+}
+
+.navbar-nav>li>a:hover  + .language {
+    background-color:#60CFFF;
+}
+
+/* .headerspecial {
+    padding-top: 3px;
+} */
+
+
 
 .navbar-nav>li.current-menu-item>a:after,
 .navbar-nav>li>a:hover:after,
@@ -1435,10 +1451,9 @@ select:focus {
     padding-top: 62px;
 }
 
-.connect-wallet {
+/* .connect-wallet {
     border: 1px solid #057e29;
     border-radius: 10px;
-    padding: 10px;
     text-align: center;
     cursor: pointer;
     
@@ -1453,7 +1468,7 @@ select:focus {
     padding: 10px;
     text-align: center;
     cursor: pointer;
-}
+} */
 
 .wallet-modal__list__item {
     cursor: pointer;

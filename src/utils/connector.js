@@ -7,7 +7,7 @@ Buffer.from('anything','base64');
 
 const POLLING_INTERVAL = 12000
 
-const chainIds = [1, 4, 56, 97];
+const chainIds = [1, 3, 4, 56, 97];
 
 export const injected = new InjectedConnector({ supportedChainIds: chainIds })
 

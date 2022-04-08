@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import WalletConnect from '../../utils/connectwallet';
+
 
 const Logo = 'images/logo.png';
 const world = 'images/world.svg';
+
 
 const Header = () => {
     return (
@@ -25,9 +28,9 @@ const Header = () => {
                             <li className=""><Link to="/explore">Explore</Link></li>
                             <li className=""><Link to="/collection">Collection</Link></li>
                             <li className=""><Link to="/reward">Reward</Link></li>
-                            <li className=""><a><img src = {world} className='language' /> EN</a></li>
+                            <li className=""><a className='headerspecial'><img src = {world} className='language' /> EN</a></li>
+                            <li className=""><a style={{float:'left'}} className='headerspecial'><WalletConnect /></a></li>
                         </ul>
-                        <div><a> Wallet connect</a></div>
                     </div>
                     <button className="navbar-toggler" id="navoverlay" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
