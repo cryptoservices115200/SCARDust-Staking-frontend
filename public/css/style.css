@@ -2326,6 +2326,7 @@ html.open-nav{
 
 .dust_button {
     padding: 5px 15px;
+    min-width: 100px;
     border-radius: 5px;
     border: 0;
     background: linear-gradient(360deg, #4db5e2 0%, #1484da 100%);

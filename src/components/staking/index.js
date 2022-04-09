@@ -1,19 +1,73 @@
 import "./staking.css";
-import React from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import Web3 from 'web3';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useWeb3React } from '@web3-react/core';
 import Button from '../samples/buttons'
 import WalletConnect from '../../utils/connectwallet';
+import { CONTRACTS, CONTRACTS_TYPE } from '../../utils/constants';
 
 
 const StakingIcon = 'images/girl_bullet.png';
-
+let web3, scardustWeb3;
 function Staking() {
 
-    const { account, chainId, activate, deactivate } = useWeb3React();
+    const { active, account, library, chainId, connector, activate, deactivate } = useWeb3React();
+    const [loading, setLoading] = useState(false);
+    // const [APY, setAPY] = useState(0);
 
-    const onClickButton = () => {
-        alert();
+    const onClickStake = async () => {
+        if (account && chainId && library) {
+            console.log(chainId)
+            setLoading(true);
+    
+            let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi;
+            let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address;
+    
+            web3 = new Web3(library.provider);
+    
+            scardustWeb3 = new web3.eth.Contract(metadata1, addr1);
+    
+            try
+            {
+                let Txn = await scardustWeb3.methods.deposit(10, true).call();
+                await Txn.wait();
+                console.log('successfully deposited. '+ Txn.hash());
+            }
+            catch(err)
+            {
+                console.log(err);
+            }
+            setLoading(false);
+        }
+    }
+
+    const onClickReward = async () => {
+        // feesharingsystem
+        if (account && chainId && library) {
+            console.log(chainId)
+            setLoading(true);
+    
+            let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi;
+            let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address;
+    
+            web3 = new Web3(library.provider);
+    
+            scardustWeb3 = new web3.eth.Contract(metadata2, addr2);
+    
+            try
+            {
+                let Txn = await scardustWeb3.methods.harvest().call();
+                await Txn.wait();
+                console.log('successfully harvested. '+ Txn.hash());
+            }
+            catch(err)
+            {
+                console.log(err);
+            }
+            setLoading(false);
+        }
+
     }
     
     return (
@@ -41,7 +95,7 @@ function Staking() {
                             {account ? (
                                 <>
                                     <p>Do a operation for Stake please...</p>
-                                    <Button  value = "Stake" onClick = {onClickButton}/>
+                                    <Button  value = "Stake" onClick = {onClickStake}/>
                                 </>
                             ) : (
                                     <>
@@ -58,7 +112,7 @@ function Staking() {
                         {account ? (
                                 <>
                                     <p>Do a operation for Reward please...</p>
-                                    <Button  value = "Reward" onClick = {onClickButton}/>
+                                    <Button  value = "Reward" onClick = {onClickReward}/>
                                 </>
                             ) : (
                                 <>
