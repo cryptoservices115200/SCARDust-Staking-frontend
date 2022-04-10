@@ -25,3 +25,16 @@ li font {
 .rewards_to_collect {
     margin-top: 10px;
 }
+
+.stakingText {
+    max-width: 50%;
+    min-width: 50%;
+    max-height: 35px;
+    color: silver;
+    opacity: 0.8;
+}
+
+.notification {
+    /* color: magenta !important; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+}

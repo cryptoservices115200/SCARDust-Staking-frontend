@@ -1,134 +1,239 @@
-import "./staking.css";
-import React, { useContext, useEffect, useState } from "react";
-import Web3 from 'web3';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useWeb3React } from '@web3-react/core';
+import './staking.css'
+import React, { useContext, useEffect, useState } from 'react'
+import Web3 from 'web3'
+import { Container, Row, Col } from 'react-bootstrap'
+import { useWeb3React } from '@web3-react/core'
 import Button from '../samples/buttons'
-import WalletConnect from '../../utils/connectwallet';
-import { CONTRACTS, CONTRACTS_TYPE } from '../../utils/constants';
+import WalletConnect from '../../utils/connectwallet'
+import { CONTRACTS, CONTRACTS_TYPE } from '../../utils/constants'
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+// import { lazySlidesOnRight } from 'react-slick/lib/utils/innerSliderUtils'
 
-
-const StakingIcon = 'images/girl_bullet.png';
-let web3, scardustWeb3;
+const StakingIcon = 'images/girl_bullet.png'
+let web3, scardustWeb3
 function Staking() {
+  const {
+    active,
+    account,
+    library,
+    chainId,
+    connector,
+    activate,
+    deactivate,
+  } = useWeb3React()
 
-    const { active, account, library, chainId, connector, activate, deactivate } = useWeb3React();
-    const [loading, setLoading] = useState(false);
-    // const [APY, setAPY] = useState(0);
+  const [loading, setLoading] = useState(false)
+  const [stakeValue, setStakeValue] = useState()
+  const [withdrawValue, setWithdrawValue] = useState()
+  const [selectedIndex, setSelectedIndex] = useState()
 
-    const onClickStake = async () => {
-        if (account && chainId && library) {
-            console.log(chainId)
-            setLoading(true);
-    
-            let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi;
-            let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address;
-    
-            web3 = new Web3(library.provider);
-    
-            scardustWeb3 = new web3.eth.Contract(metadata1, addr1);
-    
-            try
-            {
-                let Txn = await scardustWeb3.methods.deposit(10, true).call();
-                await Txn.wait();
-                console.log('successfully deposited. '+ Txn.hash());
+  
+
+  // const [APY, setAPY] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+        try
+        {
+            if (account && chainId && library) {
+                if(chainId != 3)
+                {
+                    alert("You are not in ropsten testnet now! please exchange it.");
+                    return;
+                }
             }
-            catch(err)
-            {
-                console.log(err);
-            }
-            setLoading(false);
-        }
+            else
+                return;
+        } catch (err) {
+            console.log(err)
+            return;
+          }
+    })();
+}, [chainId])
+
+  const onClickStake = async () => {
+    if (account && chainId && library) {
+      console.log(chainId)
+      setLoading(true)
+
+      let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
+      let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+
+      web3 = new Web3(library.provider)
+
+      scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
+
+      try {
+        let Txn = await scardustWeb3.methods.deposit(stakeValue, true).call()
+        await Txn.wait()
+        console.log('successfully deposited. ' + Txn.hash())
+      } catch (err) {
+        console.log(err.message);
+        NotificationManager.error('Error occured during stake!');
+        return;
+      }
+      setLoading(false)
     }
+  }
 
-    const onClickReward = async () => {
-        // feesharingsystem
-        if (account && chainId && library) {
-            console.log(chainId)
-            setLoading(true);
-    
-            let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi;
-            let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address;
-    
-            web3 = new Web3(library.provider);
-    
-            scardustWeb3 = new web3.eth.Contract(metadata2, addr2);
-    
-            try
-            {
-                let Txn = await scardustWeb3.methods.harvest().call();
-                await Txn.wait();
-                console.log('successfully harvested. '+ Txn.hash());
-            }
-            catch(err)
-            {
-                console.log(err);
-            }
-            setLoading(false);
+  
+
+  const onClickWithdraw = async () => {
+    if (account && chainId && library) {
+        console.log(chainId)
+        setLoading(true)
+  
+        let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
+        let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+  
+        web3 = new Web3(library.provider)
+  
+        scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
+  
+        try {
+          let Txn = await scardustWeb3.methods.withdraw(withdrawValue, true).call()
+          await Txn.wait()
+          console.log('successfully withdrawed. ' + Txn.hash())
+        } catch (err) {
+          console.log(err.message)
+          NotificationManager.error('Error occured during withdraw!');
+          return
         }
+        setLoading(false)
+      }
+  }
 
+  const onClickReward = async () => {
+    // feesharingsystem
+    if (account && chainId && library) {
+      console.log(chainId)
+      setLoading(true)
+
+      let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
+      let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+
+      web3 = new Web3(library.provider)
+
+      scardustWeb3 = new web3.eth.Contract(metadata2, addr2)
+
+      try {
+        let Txn = await scardustWeb3.methods.harvest().call()
+        await Txn.wait()
+        console.log('successfully harvested. ' + Txn.hash())
+      } catch (err) {
+        console.log(err.message)
+        NotificationManager.error('Error occured during Reward!');
+        return
+      }
+      setLoading(false)
     }
-    
-    return (
-        <div className="masthead">
-            <Container>
-                <div className='staking'>
-                <Row>
-                    <Col lg={6}>
-                        <div style={{display:'flex'}}>
-                            <div>
-                                <img src = {StakingIcon} width = {'50px'} height = {'40px'} style = {{marginRight:'20px'}}/>
-                            </div>
-                            <div>
-                                <p>DUST staking</p>
-                                <p>Stake DUST  |  Earn DUST & WETH</p>
-                                <p>Total DUST staked: 301,236, 162 ($846,473,615)</p>
-                                <p><b>134.85% APR</b></p>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={6}>
-                    <div className='your_contract'>
-                        <p>Your Stake</p>
-                        <div className='staking_content'>
-                            {account ? (
-                                <>
-                                    <p>Do a operation for Stake please...</p>
-                                    <Button  value = "Stake" onClick = {onClickStake}/>
-                                </>
-                            ) : (
-                                    <>
-                                        <p>Connect to your wallet to view</p>
-                                        {/* <Button  value = 'connect wallet' onClick = {onClickButButton}/> */}
-                                        <WalletConnect/>
-                                    </>
-                            )}
-                        </div>
-                    </div>
-                    <div className='rewards_to_collect'>
-                        <p>Rewards to Collect</p>
-                        <div className='staking_content'>
-                        {account ? (
-                                <>
-                                    <p>Do a operation for Reward please...</p>
-                                    <Button  value = "Reward" onClick = {onClickReward}/>
-                                </>
-                            ) : (
-                                <>
-                                    <p>Connect to your wallet to view</p>
-                                    {/* <Button  value = 'connect wallet' onClick = {onClickButButton}/> */}
-                                    <WalletConnect/>
-                                </>
-                            )}
-                        </div> 
-                    </div>
-                    </Col>
-                </Row>
+  }
+  
+  const onChangeStake = async (e) => {
+    setStakeValue(e.target.value)
+  }
+
+  const onChangeWithdraw = async (e) => {
+    setWithdrawValue(e.target.value)
+  }
+
+  return (
+    <div className="masthead">
+      <Container>
+        <div className="staking">
+          <Row>
+            <Col lg={6}>
+              <div style={{ display: 'flex' }}>
+                <div>
+                  <img
+                    src={StakingIcon}
+                    width={'50px'}
+                    height={'40px'}
+                    style={{ marginRight: '20px' }}
+                  />
                 </div>
-            </Container>
+                <div>
+                  <p>DUST staking</p>
+                  <p>Stake DUST | Earn DUST & WETH</p>
+                  <p>Total DUST staked: 301,236, 162 ($846,473,615)</p>
+                  <p>
+                    <b>134.85% APR</b>
+                  </p>
+                </div>
+              </div>
+            </Col>
+            <Col lg={6}>
+              <div className="your_contract">
+                <p>Your Stake</p>
+                <div className="staking_content">
+                  {account ? (
+                    <>
+                      <input
+                        type="number"
+                        className="stakingText"
+                        value={stakeValue}
+                        onChange={onChangeStake}
+                      />
+                      <Button value="Stake" onClick={onClickStake} />
+                    </>
+                  ) : (
+                    <>
+                      <p>Connect to your wallet to view</p>
+                      {/* <Button  value = 'connect wallet' onClick = {onClickButButton}/> */}
+                      <WalletConnect />
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="rewards_to_collect">
+                <p>Your Withdraw</p>
+                <div className="staking_content">
+                  {account ? (
+                    <>
+                      <input
+                        type="number"
+                        className="stakingText"
+                        value={withdrawValue}
+                        onChange={onChangeWithdraw}
+                      />
+                      <Button value="Withraw" onClick={onClickWithdraw} />
+                    </>
+                  ) : (
+                    <>
+                      <p>Connect to your wallet to view</p>
+                      {/* <Button  value = 'connect wallet' onClick = {onClickButButton}/> */}
+                      <WalletConnect />
+                    </>
+                  )}
+                </div>
+              </div>
+
+
+              <div className="your_contract">
+                <p>Your Reward</p>
+                <div className="staking_content">
+                  {account ? (
+                    <>
+                    <div className="stakingText"></div>
+                      <Button value="Reward" onClick={onClickReward} />
+                    </>
+                  ) : (
+                    <>
+                      <p>Connect to your wallet to view</p>
+                      {/* <Button  value = 'connect wallet' onClick = {onClickButButton}/> */}
+                      <WalletConnect />
+                    </>
+                  )}
+                </div>
+              </div>
+            </Col>
+          </Row>
         </div>
-    );
+      </Container>
+      <NotificationContainer/>
+    </div>
+  )
 }
 
-export default Staking;
+export default Staking

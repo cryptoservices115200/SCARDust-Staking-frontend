@@ -10,7 +10,7 @@ const StakingIcon = 'images/girl_bullet.png';
 function Rewarding() {
 
     const onClickButButton = () => {
-        alert();
+        // alert();
     }
     
     return (
@@ -23,7 +23,9 @@ function Rewarding() {
                                 <h4>Earn with DUST</h4><br/>
                                 <p className="dust_help">DUST helps you earn rewards.</p><br/>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis dignissim ligula. Integer porta dictum purus id pretium. Sed turpis quam, aliquam eu enim ut, molestie elementum mi. Aliquam sed tincidunt.</p>
-                                <Button icon = {''} value = 'Buy DUST' onClick = {onClickButButton}/>
+                                <a href = "https://docs.looksrare.org/about/buy-looks" target="_blank" rel="noopener noreferrer" >
+                                    <Button icon = {''} value = 'Buy DUST'/>
+                                </a>
                             </div>
                         </Col>
                         <Col lg={4}>

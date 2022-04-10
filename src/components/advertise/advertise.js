@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Web3 from 'web3';
+import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 import Button from '../samples/buttons';
 import { useWeb3React } from '@web3-react/core';
@@ -35,7 +36,8 @@ function Advertise() {
         
                 try
                 {
-                    APY = await scardustWeb3.methods.balanceOf(account).call();
+                    let tempAPY = await scardustWeb3.methods.balanceOf(account).call();
+                    setAPY(setAPY);
                 }
                 catch(err)
                 {
@@ -46,9 +48,6 @@ function Advertise() {
             setLoading(false);
         })();
     }, [account])
-
-
-    
 
     const onClickBuyDUST = async () => {
         // TOKEN_DISTRIBUTOR
@@ -86,7 +85,7 @@ function Advertise() {
                     <div >
                         <p>Stake DUST, earn up to </p>
                         <p className='apy_value'>{APY}</p>
-                        <Button icon = {'boxArrowUpRight'} value = 'Buy DUST' onClick = {onClickBuyDUST}/>
+                        <a href = "https://app.uniswap.org/" target="_blank" rel="noopener noreferrer" ><Button icon = {'boxArrowUpRight'} value = 'Buy DUST'/></a>
                     </div>
                     </Col>
                     <Col lg={8}>

@@ -30,9 +30,16 @@ function GetDUST() {
                         <Col lg={4}>
                             <div className = ''>
                                 <font class = "getdusttext">GET DUST</font><br/><br/>
-                                <div style={{marginLeft:'20%'}}><Button icon = {'boxArrowUpRight'} value = 'Buy On Uniswap'/><br/></div>
+                                <div style={{marginLeft:'20%'}}>
+                                    <a href = "https://app.uniswap.org/" target="_blank" rel="noopener noreferrer" >
+                                        <Button icon = {'boxArrowUpRight'} value = 'Buy On Uniswap'/>
+                                        <br/>
+                                    </a>
+                                </div>
                                 <br/><br/>
-                                <p style={{marginLeft:'25%', color:'#339ede'}}>Learn how to get DUST</p>
+                                <a href = "https://docs.looksrare.org/about/buy-looks" target="_blank" rel="noopener noreferrer" >
+                                    <p style={{marginLeft:'25%', color:'#339ede'}}>Learn how to get DUST</p>
+                                </a>
                             </div>
                         </Col>
                         <Col lg={4}>
