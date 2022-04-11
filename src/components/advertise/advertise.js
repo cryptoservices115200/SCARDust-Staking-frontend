@@ -24,7 +24,7 @@ function Advertise() {
     useEffect(() => {
         (async () => {
             if (account && chainId && library) {
-                console.log(chainId)
+                console.log(account)
                 setLoading(true);
         
                 let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi;
@@ -37,7 +37,8 @@ function Advertise() {
                 try
                 {
                     let tempAPY = await scardustWeb3.methods.balanceOf(account).call();
-                    setAPY(setAPY);
+                    setAPY(tempAPY);
+                    console.log(tempAPY)
                 }
                 catch(err)
                 {

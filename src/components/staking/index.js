@@ -8,6 +8,8 @@ import WalletConnect from '../../utils/connectwallet'
 import { CONTRACTS, CONTRACTS_TYPE } from '../../utils/constants'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+// import { BigNumber } from 'ethers'
+import BigNumber from 'bignumber.js';
 // import { lazySlidesOnRight } from 'react-slick/lib/utils/innerSliderUtils'
 
 const StakingIcon = 'images/girl_bullet.png'
@@ -45,6 +47,56 @@ function Staking() {
             }
             else
                 return;
+
+                // if (account && chainId && library) {
+                //     console.log(account)
+                //     console.log('accountaccountaccountaccountaccountaccount')
+                //     setLoading(true)
+              
+                //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
+                //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
+              
+                //     web3 = new Web3(library.provider)
+              
+                //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
+                //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
+                //         console.log( new BigNumber(200000).multipliedBy(10 ** 18));
+                //     try {
+                //       let Txn = await scardustWeb3.methods.approve("0x2C36F857396e7346412579221F95040f8AEB66FB", new BigNumber(200000).multipliedBy(10 ** 18) ).send({from:account})
+                //       console.log('successfully approved. ')
+                //     } catch (err) {
+                //       console.log(err);
+                //       console.log('err');
+                //       NotificationManager.error('Error occured during approve!');
+                //       return;
+                //     }
+                //     setLoading(false)
+                //   }
+
+                // if (account && chainId && library) {
+                //     console.log(account)
+              
+                //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
+                //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
+              
+                //     web3 = new Web3(library.provider)
+              
+                //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
+                //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
+                //     try {
+                //         let Txn = await scardustWeb3.methods.allowance(depositValue).call()
+                //       console.log('successfully approved.' + Txn)
+                //     } catch (err) {
+                //       console.log(err);
+                //       console.log('err');
+                //       NotificationManager.error('Error occured during approve!');
+                //       return;
+                //     }
+                //   }
+
+
+
+
         } catch (err) {
             console.log(err)
             return;
@@ -54,22 +106,29 @@ function Staking() {
 
   const onClickStake = async () => {
     if (account && chainId && library) {
-      console.log(chainId)
+      
       setLoading(true)
 
-      let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
-      let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+      let metadata1 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.abi
+      let addr1 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.address
 
       web3 = new Web3(library.provider)
 
       scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
 
+      console.log(addr1, account);
+
+      let depositValue = new BigNumber(stakeValue).multipliedBy(10 ** 18)
+      console.log(depositValue.toString())
+
+
       try {
-        let Txn = await scardustWeb3.methods.deposit(stakeValue, true).call()
+        let Txn = await scardustWeb3.methods.deposit(depositValue).call()
         await Txn.wait()
         console.log('successfully deposited. ' + Txn.hash())
       } catch (err) {
-        console.log(err.message);
+        console.log(err);
+        console.log('err');
         NotificationManager.error('Error occured during stake!');
         return;
       }

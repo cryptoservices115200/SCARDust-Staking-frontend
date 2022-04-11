@@ -35,21 +35,21 @@ export const CONTRACTS = {
   
   [CONTRACTS_TYPE.SCARDUST_TOKEN]: {
     1: { address: '', abi: '' },
-    3: { address: "0xff29117e680d6977f487d647356d376654B0F0CE", abi: scarDustToken.abi },
+    3: { address: "0x08D129735738746A471801F365C4837CE97f801c", abi: scarDustToken.abi },
     56: { address: '', abi: '' },
-    97: { address: '0xff29117e680d6977f487d647356d376654B0F0CE', abi: scarDustToken.abi },
+    97: { address: '0x08D129735738746A471801F365C4837CE97f801c', abi: scarDustToken.abi },
   },
   [CONTRACTS_TYPE.TOKEN_DISTRIBUTOR]: {
     1: { address: '', abi: '' },
-    3: { address: "0xdc187779eB7dA87423f4586156162Aa87B6b5762", abi: tokenDistributor.abi },
+    3: { address: "0x60f31CA91319d1d03710aF52eC5461422ce80EDF", abi: tokenDistributor.abi },
     56: { address: '', abi: '' },
-    97: { address: '0xdc187779eB7dA87423f4586156162Aa87B6b5762', abi: tokenDistributor.abi },
+    97: { address: '0x60f31CA91319d1d03710aF52eC5461422ce80EDF', abi: tokenDistributor.abi },
   },
   [CONTRACTS_TYPE.FEESHARING_SYSTEM]: {
     1: { address: '', abi: '' },
-    3: { address: "0x9792C3b38b67a9fA26FD082BeE96EfeD508D2D61", abi: feeSharingSystem.abi },
+    3: { address: "0xB24c02Dc2a5D553CBCEdB7B2A6d884e37243F73d", abi: feeSharingSystem.abi },
     56: { address: '', abi: '' },
-    97: { address: '0x9792C3b38b67a9fA26FD082BeE96EfeD508D2D61', abi: feeSharingSystem.abi },
+    97: { address: '0xB24c02Dc2a5D553CBCEdB7B2A6d884e37243F73d', abi: feeSharingSystem.abi },
   },
 
   
