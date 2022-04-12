@@ -110,8 +110,8 @@ function Staking() {
       
       setLoading(true)
 
-      let metadata1 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.abi
-      let addr1 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.address
+      let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
+      let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
 
       web3 = new Web3(library.provider)
 
@@ -124,7 +124,7 @@ function Staking() {
 
 
       try {
-        let Txn = await scardustWeb3.methods.deposit(depositValue).send({from: account});//multipliedBy(10 ** 18)).send({from: account});
+        let Txn = await scardustWeb3.methods.deposit(depositValue, true).send({from: account});//multipliedBy(10 ** 18)).send({from: account});
         console.log(Txn)
         console.log('successfully deposited. ')
         NotificationManager.success('successfully deposited!');
@@ -153,7 +153,7 @@ function Staking() {
         scardustWeb3 = new web3.eth.Contract(metadata2, addr2)
   
         try {
-            let Txn = await scardustWeb3.methods.withdraw(withdrawValue).send({from: account})
+            let Txn = await scardustWeb3.methods.withdraw(withdrawValue, true).send({from: account})
           console.log('successfully withdrawed. ')
           NotificationManager.success('successfully withdrawed!');
         } catch (err) {
