@@ -85,7 +85,7 @@ function Advertise() {
                     <Col lg={4}>
                     <div >
                         <p>Stake DUST, earn up to </p>
-                        <p className='apy_value'>{APY}</p>
+                        <p className='apy_value'>{'234.81%'}</p>
                         <a href = "https://app.uniswap.org/" target="_blank" rel="noopener noreferrer" ><Button icon = {'boxArrowUpRight'} value = 'Buy DUST'/></a>
                     </div>
                     </Col>

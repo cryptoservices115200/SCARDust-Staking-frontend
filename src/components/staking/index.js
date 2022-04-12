@@ -38,15 +38,16 @@ function Staking() {
     (async () => {
         try
         {
-            if (account && chainId && library) {
-                if(chainId != 3)
-                {
-                    alert("You are not in ropsten testnet now! please exchange it.");
-                    return;
-                }
-            }
-            else
-                return;
+            // if (account && chainId && library) {
+            //     if(chainId != 3)
+            //     {
+            //         alert("You are not in ropsten testnet now! please exchange it.");
+            //         return;
+            //     }
+            // }
+            // else
+            //     return;
+            console.log('ddddddddd');
 
                 // if (account && chainId && library) {
                 //     console.log(account)
@@ -123,9 +124,10 @@ function Staking() {
 
 
       try {
-        let Txn = await scardustWeb3.methods.deposit(depositValue).call()
-        await Txn.wait()
-        console.log('successfully deposited. ' + Txn.hash())
+        let Txn = await scardustWeb3.methods.deposit(depositValue).send({from: account});//multipliedBy(10 ** 18)).send({from: account});
+        console.log(Txn)
+        console.log('successfully deposited. ')
+        NotificationManager.success('successfully deposited!');
       } catch (err) {
         console.log(err);
         console.log('err');
@@ -143,17 +145,17 @@ function Staking() {
         console.log(chainId)
         setLoading(true)
   
-        let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
-        let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+        let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
+        let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
   
         web3 = new Web3(library.provider)
   
-        scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
+        scardustWeb3 = new web3.eth.Contract(metadata2, addr2)
   
         try {
-          let Txn = await scardustWeb3.methods.withdraw(withdrawValue, true).call()
-          await Txn.wait()
-          console.log('successfully withdrawed. ' + Txn.hash())
+            let Txn = await scardustWeb3.methods.withdraw(withdrawValue).send({from: account})
+          console.log('successfully withdrawed. ')
+          NotificationManager.success('successfully withdrawed!');
         } catch (err) {
           console.log(err.message)
           NotificationManager.error('Error occured during withdraw!');
@@ -178,8 +180,7 @@ function Staking() {
 
       try {
         let Txn = await scardustWeb3.methods.harvest().call()
-        await Txn.wait()
-        console.log('successfully harvested. ' + Txn.hash())
+        console.log('successfully harvested. ')
       } catch (err) {
         console.log(err.message)
         NotificationManager.error('Error occured during Reward!');
