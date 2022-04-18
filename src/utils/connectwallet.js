@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { wallets } from './constants';
 import { useState, useContext, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { injected, walletconnector, bsc, cronosConnector } from './connector';
+import { injected, walletconnector, bsc, cronosConnector, CoinbaseWallet } from './connector';
 import {Buffer} from 'buffer';
 import Button from '../components/samples/buttons'
 
@@ -62,7 +62,7 @@ const WalletConnect = () => {
     } else if (wname === 'Wallet Connect') {
       await activate(walletconnector)
     } else {
-      await activate(cronosConnector);
+      await activate(CoinbaseWallet);
     }
   }
 

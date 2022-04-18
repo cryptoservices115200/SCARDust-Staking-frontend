@@ -1,7 +1,7 @@
 
 const WalletConnectIcon = 'images/wallet/walletconnect.svg';
 const MetamaskIcon = 'images/wallet/metamask.svg';
-const CronosConnect = 'images/wallet/deficrypto.svg';
+const CoinbaseConnect = 'images/wallet/coinbasewallet.svg';
 
 
 export const wallets = [
@@ -14,8 +14,8 @@ export const wallets = [
     icon: WalletConnectIcon,
   },
   {
-    name: 'Crypto.com Wallet',
-    icon: CronosConnect,
+    name: 'CoinBase Wallet',
+    icon: CoinbaseConnect,
   }
 ];
 

@@ -2,6 +2,7 @@ import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { BscConnector } from '@binance-chain/bsc-connector';
 import { DeFiWeb3Connector } from "deficonnect";
+import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import {Buffer} from 'buffer';
 Buffer.from('anything','base64');
 
@@ -30,3 +31,13 @@ export const cronosConnector = new DeFiWeb3Connector({
 });
 
 export const bsc = new BscConnector({ supportedChainIds: chainIds })
+
+export const CoinbaseWallet = new WalletLinkConnector({
+
+  url: `https://mainnet.infura.io/v3/INFURA_API_KEY`,
+ 
+  appName: "Web3-react Demo",
+ 
+  supportedChainIds: [1, 3, 4, 5, 42],
+ 
+ });
