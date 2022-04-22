@@ -26,14 +26,14 @@ function Advertise() {
             if (account && chainId && library) {
                 console.log(account)
                 setLoading(true);
-        
+
                 let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi;
                 let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address;
-        
+
                 web3 = new Web3(library.provider);
-        
+
                 let scardustWeb3 = new web3.eth.Contract(metadata1, addr1);
-        
+
                 try
                 {
                     let tempAPY = await scardustWeb3.methods.balanceOf(account).call();
@@ -55,14 +55,14 @@ function Advertise() {
         if (account && chainId && library) {
             console.log(chainId)
             setLoading(true);
-    
+
             let metadata2 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.abi;
             let addr2 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.address;
-    
+
             web3 = new Web3(library.provider);
-    
+
             let scardustWeb3 = new web3.eth.Contract(metadata2, addr2);
-    
+
             try
             {
                 let Txn = await scardustWeb3.methods.deposit(10).call();
@@ -76,7 +76,7 @@ function Advertise() {
             setLoading(false);
         }
     }
-    
+
     return (
         <div className="masthead">
             <Container>
@@ -84,9 +84,9 @@ function Advertise() {
                 <Row>
                     <Col lg={4}>
                     <div >
-                        <p>Stake DUST, earn up to </p>
+                        <p>Stake SCRD, earn up to </p>
                         <p className='apy_value'>{'234.81%'}</p>
-                        <a href = "https://app.uniswap.org/" target="_blank" rel="noopener noreferrer" ><Button icon = {'boxArrowUpRight'} value = 'Buy DUST'/></a>
+                        <a href = "https://app.uniswap.org/" target="_blank" rel="noopener noreferrer" ><Button icon = {'boxArrowUpRight'} value = 'Buy SCRD'/></a>
                     </div>
                     </Col>
                     <Col lg={8}>

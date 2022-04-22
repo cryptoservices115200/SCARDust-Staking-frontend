@@ -30,7 +30,7 @@ function Staking() {
   const [withdrawValue, setWithdrawValue] = useState()
   const [selectedIndex, setSelectedIndex] = useState()
 
-  
+
 
   // const [APY, setAPY] = useState(0);
 
@@ -53,12 +53,12 @@ function Staking() {
                 //     console.log(account)
                 //     console.log('accountaccountaccountaccountaccountaccount')
                 //     setLoading(true)
-              
+
                 //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
                 //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
-              
+
                 //     web3 = new Web3(library.provider)
-              
+
                 //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
                 //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
                 //         console.log( new BigNumber(200000).multipliedBy(10 ** 18));
@@ -76,12 +76,12 @@ function Staking() {
 
                 // if (account && chainId && library) {
                 //     console.log(account)
-              
+
                 //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
                 //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
-              
+
                 //     web3 = new Web3(library.provider)
-              
+
                 //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
                 //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
                 //     try {
@@ -107,7 +107,7 @@ function Staking() {
 
   const onClickStake = async () => {
     if (account && chainId && library) {
-      
+
       setLoading(true)
 
       let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
@@ -138,20 +138,20 @@ function Staking() {
     }
   }
 
-  
+
 
   const onClickWithdraw = async () => {
     if (account && chainId && library) {
         console.log(chainId)
         setLoading(true)
-  
+
         let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
         let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
-  
+
         web3 = new Web3(library.provider)
-  
+
         scardustWeb3 = new web3.eth.Contract(metadata2, addr2)
-  
+
         try {
             let Txn = await scardustWeb3.methods.withdraw(withdrawValue, true).send({from: account})
           console.log('successfully withdrawed. ')
@@ -189,7 +189,7 @@ function Staking() {
       setLoading(false)
     }
   }
-  
+
   const onChangeStake = async (e) => {
     setStakeValue(e.target.value)
   }
@@ -214,9 +214,9 @@ function Staking() {
                   />
                 </div>
                 <div>
-                  <p>DUST staking</p>
-                  <p>Stake DUST | Earn DUST & WETH</p>
-                  <p>Total DUST staked: 301,236, 162 ($846,473,615)</p>
+                  <p>SCRD staking</p>
+                  <p>Stake SCRD | Earn SCRD & WETH</p>
+                  <p>Total SCRD staked: 301,236, 162 ($846,473,615)</p>
                   <p>
                     <b>134.85% APR</b>
                   </p>

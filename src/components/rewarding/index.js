@@ -12,19 +12,20 @@ function Rewarding() {
     const onClickButButton = () => {
         // alert();
     }
-    
+
     return (
         <div className="masthead">
             <Container>
                 <div className='rewarding'>
+                    <h4>Earn with SCRD</h4><br/>
                     <Row>
                         <Col lg={4}>
-                            <div>
-                                <h4>Earn with DUST</h4><br/>
-                                <p className="dust_help">DUST helps you earn rewards.</p><br/>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis dignissim ligula. Integer porta dictum purus id pretium. Sed turpis quam, aliquam eu enim ut, molestie elementum mi. Aliquam sed tincidunt.</p>
-                                <a href = "https://docs.looksrare.org/about/buy-looks" target="_blank" rel="noopener noreferrer" >
-                                    <Button icon = {''} value = 'Buy DUST'/>
+                            <div className = 'earnby'>
+
+                                <span className="head_title">SCRD helps you earn rewards.</span> <br/><br/>
+                                <p>Rewards (both wETH and SCRD) are automatically re-staked into the pool to increase the amount of SCRD staked. When you unstake your tokens, the amount of compounded SCRD plus the original amount staked will be sent to your address.</p><br/>
+                                <a href = "https://www.warmus.land/scardust/" target="_blank" rel="noopener noreferrer" >
+                                    <Button icon = {''} value = 'Buy SCRD'/>
                                 </a>
                             </div>
                         </Col>
@@ -32,12 +33,12 @@ function Rewarding() {
                             <div className = 'earnby'>
                                 <span className="head_title">Earn By Staking</span>
                                 <br/><br/>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis dignissim ligula. </p>
+                                <p>SCRD gets you the best apy for your investment. </p>
                                 <br/><br/>
                                 <ul>
-                                    <li>Stake DUST via this page to earn:</li>
+                                    <li>Stake SCRD via this page to earn:</li>
                                     <li><font>▶</font> WETH trading fees</li>
-                                    <li><font>▶</font> Extra DUST</li>
+                                    <li><font>▶</font> Extra SCRD</li>
                                 </ul>
                             </div>
                         </Col>
@@ -45,7 +46,7 @@ function Rewarding() {
                         <div className = 'earnby'>
                                 <span className="head_title">Earn By Staking</span>
                                 <br/><br/>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis dignissim ligula. </p>
+                                <p>SCRD gets you the best apy for your investment. </p>
                             </div>
                         </Col>
                     </Row>
