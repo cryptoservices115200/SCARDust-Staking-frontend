@@ -27,8 +27,16 @@ li font {
 }
 
 .stakingText {
-    max-width: 50%;
-    min-width: 50%;
+    max-width: 90%;
+    min-width: 90%;
+    max-height: 35px;
+    color: silver;
+    opacity: 0.8;
+}
+
+.withdrawText {
+    max-width: 70%;
+    min-width: 70%;
     max-height: 35px;
     color: silver;
     opacity: 0.8;
@@ -38,3 +46,21 @@ li font {
     /* color: magenta !important; */
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
 }
+
+/* .percentContainer {
+    display: flex;
+} */
+
+.percentButton {
+    height: 30px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    margin: 5px;
+    width: 20%;
+}
+
+/* 
+.clear {
+    clear: both;
+} */

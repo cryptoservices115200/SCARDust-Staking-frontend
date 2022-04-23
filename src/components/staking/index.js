@@ -13,7 +13,7 @@ import BigNumber from 'bignumber.js';
 // import { lazySlidesOnRight } from 'react-slick/lib/utils/innerSliderUtils'
 
 const StakingIcon = 'images/girl_bullet.png'
-let web3, scardustWeb3
+let web3, scardustWeb1
 function Staking() {
   const {
     active,
@@ -29,6 +29,7 @@ function Staking() {
   const [stakeValue, setStakeValue] = useState()
   const [withdrawValue, setWithdrawValue] = useState()
   const [selectedIndex, setSelectedIndex] = useState()
+  const [totalStake, setTotalStake] = useState('0')
 
   
 
@@ -36,68 +37,34 @@ function Staking() {
 
   useEffect(() => {
     (async () => {
+      console.log(library);
+      console.log(account, chainId);
         try
         {
-            // if (account && chainId && library) {
-            //     if(chainId != 3)
-            //     {
-            //         alert("You are not in ropsten testnet now! please exchange it.");
-            //         return;
-            //     }
-            // }
-            // else
-            //     return;
-            console.log('ddddddddd');
+            if (account && chainId && library) {
+              web3 = new Web3(library.provider)
+              let metadata0 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
+              let addr0 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
 
-                // if (account && chainId && library) {
-                //     console.log(account)
-                //     console.log('accountaccountaccountaccountaccountaccount')
-                //     setLoading(true)
-              
-                //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
-                //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
-              
-                //     web3 = new Web3(library.provider)
-              
-                //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
-                //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
-                //         console.log( new BigNumber(200000).multipliedBy(10 ** 18));
-                //     try {
-                //       let Txn = await scardustWeb3.methods.approve("0x2C36F857396e7346412579221F95040f8AEB66FB", new BigNumber(200000).multipliedBy(10 ** 18) ).send({from:account})
-                //       console.log('successfully approved. ')
-                //     } catch (err) {
-                //       console.log(err);
-                //       console.log('err');
-                //       NotificationManager.error('Error occured during approve!');
-                //       return;
-                //     }
-                //     setLoading(false)
-                //   }
+              scardustWeb1 = new web3.eth.Contract(metadata0, addr0)
+              console.log(scardustWeb1);
 
-                // if (account && chainId && library) {
-                //     console.log(account)
-              
-                //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
-                //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
-              
-                //     web3 = new Web3(library.provider)
-              
-                //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
-                //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
-                //     try {
-                //         let Txn = await scardustWeb3.methods.allowance(depositValue).call()
-                //       console.log('successfully approved.' + Txn)
-                //     } catch (err) {
-                //       console.log(err);
-                //       console.log('err');
-                //       NotificationManager.error('Error occured during approve!');
-                //       return;
-                //     }
-                //   }
+              // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
+              try {
+                let value = await scardustWeb1.methods.totalShares().call();
 
-
-
-
+                
+                  value = new BigNumber(value).dividedBy(10 ** 18).toString();
+                setTotalStake(value);
+                // console.log(value);
+              } catch (err) {
+                console.log(err);
+                console.log('failed get.');
+                NotificationManager.error('Error occured during approve!');
+                return;
+              }
+              setLoading(false)
+            }
         } catch (err) {
             console.log(err)
             return;
@@ -115,7 +82,7 @@ function Staking() {
 
       web3 = new Web3(library.provider)
 
-      scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
+      scardustWeb1 = new web3.eth.Contract(metadata1, addr1)
 
       console.log(addr1, account);
 
@@ -124,7 +91,7 @@ function Staking() {
 
 
       try {
-        let Txn = await scardustWeb3.methods.deposit(depositValue, true).send({from: account});//multipliedBy(10 ** 18)).send({from: account});
+        let Txn = await scardustWeb1.methods.deposit(depositValue, true).send({from: account});//multipliedBy(10 ** 18)).send({from: account});
         console.log(Txn)
         console.log('successfully deposited. ')
         NotificationManager.success('successfully deposited!');
@@ -150,10 +117,10 @@ function Staking() {
   
         web3 = new Web3(library.provider)
   
-        scardustWeb3 = new web3.eth.Contract(metadata2, addr2)
+        scardustWeb1 = new web3.eth.Contract(metadata2, addr2)
   
         try {
-            let Txn = await scardustWeb3.methods.withdraw(withdrawValue, true).send({from: account})
+            let Txn = await scardustWeb1.methods.withdraw(withdrawValue, true).send({from: account})
           console.log('successfully withdrawed. ')
           NotificationManager.success('successfully withdrawed!');
         } catch (err) {
@@ -176,10 +143,10 @@ function Staking() {
 
       web3 = new Web3(library.provider)
 
-      scardustWeb3 = new web3.eth.Contract(metadata2, addr2)
+      scardustWeb1 = new web3.eth.Contract(metadata2, addr2)
 
       try {
-        let Txn = await scardustWeb3.methods.harvest().call()
+        let Txn = await scardustWeb1.methods.harvest().call()
         console.log('successfully harvested. ')
       } catch (err) {
         console.log(err.message)
@@ -196,6 +163,37 @@ function Staking() {
 
   const onChangeWithdraw = async (e) => {
     setWithdrawValue(e.target.value)
+  }
+
+  const onClickPercent = async (e) => {
+    let rate = e.target.value;
+    if (account && chainId && library) {
+      
+      setLoading(true)
+
+      let metadata4 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
+      let addr4 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
+
+      web3 = new Web3(library.provider)
+
+      scardustWeb1 = new web3.eth.Contract(metadata4, addr4)
+
+      console.log(addr4, account);
+
+      let depositValue = new BigNumber(stakeValue).multipliedBy(10 ** 18)
+      console.log(depositValue.toString())
+
+
+      try {
+        let balance = await scardustWeb1.methods.balanceOf(account).call({from: account});//multipliedBy(10 ** 18)).send({from: account});
+        let rate_balance = new BigNumber(balance / 4 * rate).dividedBy( 10 ** 18);
+        setStakeValue(rate_balance);
+      } catch (err) {
+        console.log(err);
+        return;
+      }
+      setLoading(false)
+    }
   }
 
   return (
@@ -216,7 +214,7 @@ function Staking() {
                 <div>
                   <p>DUST staking</p>
                   <p>Stake DUST | Earn DUST & WETH</p>
-                  <p>Total DUST staked: 301,236, 162 ($846,473,615)</p>
+                  <p>Total DUST staked: {totalStake}</p>
                   <p>
                     <b>134.85% APR</b>
                   </p>
@@ -229,12 +227,18 @@ function Staking() {
                 <div className="staking_content">
                   {account ? (
                     <>
+                    <div className='percentContainer'>
                       <input
                         type="number"
                         className="stakingText"
                         value={stakeValue}
                         onChange={onChangeStake}
                       />
+                            <button className='percentButton' value={1} onClick = {onClickPercent}>25%</button>
+                            <button className='percentButton' value={2} onClick = {onClickPercent}>50%</button>
+                            <button className='percentButton' value={3} onClick = {onClickPercent}>75%</button>
+                            <button className='percentButton' value={4} onClick = {onClickPercent}>100%</button>
+                      </div>
                       <Button value="Stake" onClick={onClickStake} />
                     </>
                   ) : (
@@ -253,7 +257,7 @@ function Staking() {
                     <>
                       <input
                         type="number"
-                        className="stakingText"
+                        className="withdrawText"
                         value={withdrawValue}
                         onChange={onChangeWithdraw}
                       />
@@ -275,7 +279,7 @@ function Staking() {
                 <div className="staking_content">
                   {account ? (
                     <>
-                    <div className="stakingText"></div>
+                    <div className="withdrawText"></div>
                       <Button value="Reward" onClick={onClickReward} />
                     </>
                   ) : (
