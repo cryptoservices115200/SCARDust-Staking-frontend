@@ -12,7 +12,7 @@ function GetDUST() {
     const onClickButButton = () => {
         alert();
     }
-    
+
     return (
         <div className="masthead">
             <Container>
@@ -29,7 +29,7 @@ function GetDUST() {
                         </Col> */}
                         <Col lg={4}>
                             <div className = ''>
-                                <font class = "getdusttext">GET DUST</font><br/><br/>
+                                <font class = "getdusttext">GET SCRD</font><br/><br/>
                                 <div style={{marginLeft:'20%'}}>
                                     <a href = "https://app.uniswap.org/" target="_blank" rel="noopener noreferrer" >
                                         <Button icon = {'boxArrowUpRight'} value = 'Buy On Uniswap'/>
@@ -37,8 +37,8 @@ function GetDUST() {
                                     </a>
                                 </div>
                                 <br/><br/>
-                                <a href = "https://docs.looksrare.org/about/buy-looks" target="_blank" rel="noopener noreferrer" >
-                                    <p style={{marginLeft:'25%', color:'#339ede'}}>Learn how to get DUST</p>
+                                <a href = "https://www.warmus.land/scardust/" target="_blank" rel="noopener noreferrer" >
+                                    <p style={{marginLeft:'25%', color:'#339ede'}}>Learn how to get SCRD</p>
                                 </a>
                             </div>
                         </Col>

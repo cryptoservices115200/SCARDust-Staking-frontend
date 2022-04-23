@@ -25,10 +25,10 @@ const Header = () => {
                             <span className="stick"></span>
                         </button>
                         <ul className="navbar-nav ms-auto">
-                            <li className=""><Link to="/explore">Explore</Link></li>
-                            <li className=""><Link to="/collection">Collection</Link></li>
-                            <li className=""><Link to="/reward">Reward</Link></li>
-                            <li className=""><a className='headerspecial'><img src = {world} className='language' /> EN</a></li>
+                            {/*<li className=""><Link to="/explore">Explore</Link></li>*/}
+                            {/*<li className=""><Link to="/collection">Collection</Link></li>*/}
+                            <li className=""><a href="https://www.warmus.land/scardust/" target={'_blank'}>Homepage</a></li>
+                            {/*<li className=""><a className='headerspecial'><img src = {world} className='language' /> EN</a></li>*/}
                             <li className=""><a style={{float:'left'}} className='headerspecial'><WalletConnect /></a></li>
                         </ul>
                     </div>
