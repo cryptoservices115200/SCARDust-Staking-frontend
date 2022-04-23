@@ -41,70 +41,10 @@ function Staking() {
       console.log(account, chainId);
         try
         {
-<<<<<<< HEAD
             if (account && chainId && library) {
               web3 = new Web3(library.provider)
               let metadata0 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
               let addr0 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
-=======
-            // if (account && chainId && library) {
-            //     if(chainId != 3)
-            //     {
-            //         alert("You are not in ropsten testnet now! please exchange it.");
-            //         return;
-            //     }
-            // }
-            // else
-            //     return;
-            console.log('ddddddddd');
-
-                // if (account && chainId && library) {
-                //     console.log(account)
-                //     console.log('accountaccountaccountaccountaccountaccount')
-                //     setLoading(true)
-
-                //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
-                //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
-
-                //     web3 = new Web3(library.provider)
-
-                //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
-                //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
-                //         console.log( new BigNumber(200000).multipliedBy(10 ** 18));
-                //     try {
-                //       let Txn = await scardustWeb3.methods.approve("0x2C36F857396e7346412579221F95040f8AEB66FB", new BigNumber(200000).multipliedBy(10 ** 18) ).send({from:account})
-                //       console.log('successfully approved. ')
-                //     } catch (err) {
-                //       console.log(err);
-                //       console.log('err');
-                //       NotificationManager.error('Error occured during approve!');
-                //       return;
-                //     }
-                //     setLoading(false)
-                //   }
-
-                // if (account && chainId && library) {
-                //     console.log(account)
-
-                //     let metadata1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
-                //     let addr1 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
-
-                //     web3 = new Web3(library.provider)
-
-                //     scardustWeb3 = new web3.eth.Contract(metadata1, addr1)
-                //     // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
-                //     try {
-                //         let Txn = await scardustWeb3.methods.allowance(depositValue).call()
-                //       console.log('successfully approved.' + Txn)
-                //     } catch (err) {
-                //       console.log(err);
-                //       console.log('err');
-                //       NotificationManager.error('Error occured during approve!');
-                //       return;
-                //     }
-                //   }
-
->>>>>>> af31269dc4eb4131254f88e18d30573702840655
 
               scardustWeb1 = new web3.eth.Contract(metadata0, addr0)
               console.log(scardustWeb1);
@@ -176,15 +116,9 @@ function Staking() {
         let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
 
         web3 = new Web3(library.provider)
-<<<<<<< HEAD
   
         scardustWeb1 = new web3.eth.Contract(metadata2, addr2)
   
-=======
-
-        scardustWeb3 = new web3.eth.Contract(metadata2, addr2)
-
->>>>>>> af31269dc4eb4131254f88e18d30573702840655
         try {
             let Txn = await scardustWeb1.methods.withdraw(withdrawValue, true).send({from: account})
           console.log('successfully withdrawed. ')
@@ -278,15 +212,9 @@ function Staking() {
                   />
                 </div>
                 <div>
-<<<<<<< HEAD
                   <p>DUST staking</p>
                   <p>Stake DUST | Earn DUST & WETH</p>
                   <p>Total DUST staked: {totalStake}</p>
-=======
-                  <p>SCRD staking</p>
-                  <p>Stake SCRD | Earn SCRD & WETH</p>
-                  <p>Total SCRD staked: 301,236, 162 ($846,473,615)</p>
->>>>>>> af31269dc4eb4131254f88e18d30573702840655
                   <p>
                     <b>134.85% APR</b>
                   </p>
