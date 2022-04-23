@@ -53,7 +53,7 @@ function Staking() {
               try {
                 let value = await scardustWeb1.methods.totalShares().call();
 
-                
+
                   value = new BigNumber(value).dividedBy(10 ** 18).toString();
                 setTotalStake(value);
                 // console.log(value);
@@ -116,9 +116,9 @@ function Staking() {
         let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
 
         web3 = new Web3(library.provider)
-  
+
         scardustWeb1 = new web3.eth.Contract(metadata2, addr2)
-  
+
         try {
             let Txn = await scardustWeb1.methods.withdraw(withdrawValue, true).send({from: account})
           console.log('successfully withdrawed. ')
@@ -168,7 +168,7 @@ function Staking() {
   const onClickPercent = async (e) => {
     let rate = e.target.value;
     if (account && chainId && library) {
-      
+
       setLoading(true)
 
       let metadata4 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
@@ -212,9 +212,9 @@ function Staking() {
                   />
                 </div>
                 <div>
-                  <p>DUST staking</p>
-                  <p>Stake DUST | Earn DUST & WETH</p>
-                  <p>Total DUST staked: {totalStake}</p>
+                  <p>SCRD staking</p>
+                  <p>Stake SCRD | Earn SCRD & WETH</p>
+                  <p>Total SCRD staked: {totalStake}</p>
                   <p>
                     <b>134.85% APR</b>
                   </p>
