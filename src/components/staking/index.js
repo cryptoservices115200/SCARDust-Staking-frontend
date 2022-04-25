@@ -61,7 +61,7 @@ function Staking() {
               try {
                 let value = await contractObject2.methods.totalShares().call();
 
-                
+
                   value = new BigNumber(value).dividedBy(10 ** 18).toString();
                 setTotalStake(value);
                 // console.log(value);
@@ -192,7 +192,7 @@ function Staking() {
   const onClickPercent = async (e) => {
     let rate = e.target.value;
     if (account && chainId && library) {
-      
+
       setLoading(true)
 
 
@@ -233,9 +233,9 @@ function Staking() {
                   />
                 </div>
                 <div>
-                  <p>DUST staking</p>
-                  <p>Stake DUST | Earn DUST & WETH</p>
-                  <p>Total DUST staked: {totalStake}</p>
+                  <p>SCRD staking</p>
+                  <p>Stake SCRD | Earn SCRD & WETH</p>
+                  <p>Total SCRD staked: {totalStake}</p>
                   <p>
                     <b>134.85% APR</b>
                   </p>
