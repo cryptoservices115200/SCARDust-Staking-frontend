@@ -8,12 +8,11 @@ import WalletConnect from '../../utils/connectwallet'
 import { CONTRACTS, CONTRACTS_TYPE } from '../../utils/constants'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-// import { BigNumber } from 'ethers'
+import { ethers } from 'ethers';
 import BigNumber from 'bignumber.js';
-// import { lazySlidesOnRight } from 'react-slick/lib/utils/innerSliderUtils'
 
 const StakingIcon = 'images/girl_bullet.png'
-let web3, scardustWeb1
+let web3, contractObject1, contractObject2
 function Staking() {
   const {
     active,
@@ -31,6 +30,18 @@ function Staking() {
   const [selectedIndex, setSelectedIndex] = useState()
   const [totalStake, setTotalStake] = useState('0')
 
+  let metadata0 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
+  let addr0 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
+
+  //TOKEN_DISTRIBUTOR
+  let metadata1 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.abi
+  let addr1 = CONTRACTS[CONTRACTS_TYPE.TOKEN_DISTRIBUTOR][chainId]?.address
+
+
+  let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
+  let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+
+
 
 
   // const [APY, setAPY] = useState(0);
@@ -43,15 +54,12 @@ function Staking() {
         {
             if (account && chainId && library) {
               web3 = new Web3(library.provider)
-              let metadata0 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
-              let addr0 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
-
-              scardustWeb1 = new web3.eth.Contract(metadata0, addr0)
-              console.log(scardustWeb1);
+              contractObject2 = new web3.eth.Contract(metadata2, addr2)
+              console.log(contractObject2);
 
               // await v1alphaBalanceWeb3.methods.approve(addr, new BigNumber(200000).multipliedBy(10 ** 18)).send({from: account});
               try {
-                let value = await scardustWeb1.methods.totalShares().call();
+                let value = await contractObject2.methods.totalShares().call();
 
                 
                   value = new BigNumber(value).dividedBy(10 ** 18).toString();
@@ -76,22 +84,43 @@ function Staking() {
     if (account && chainId && library) {
 
       setLoading(true)
-
-      let metadata1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
-      let addr1 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+      const { ethereum } = window;
 
       web3 = new Web3(library.provider)
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      // contractObject1 = new web3.eth.Contract(metadata0, addr0);
+      contractObject2 = new web3.eth.Contract(metadata2, addr2);
+      contractObject1 = new ethers.Contract(addr0, metadata0, signer);
 
-      scardustWeb1 = new web3.eth.Contract(metadata1, addr1)
+      
 
-      console.log(addr1, account);
+
 
       let depositValue = new BigNumber(stakeValue).multipliedBy(10 ** 18)
       console.log(depositValue.toString())
 
+      let allowanceAmount = await contractObject1.allowance(account, addr2);
+
+      console.log(allowanceAmount);
+      console.log('console.log(amountWillDeposit);console.log(amountWillDeposit);');
+      
+
+      if(allowanceAmount <= depositValue)
+      {
+        let Txn = await contractObject1.approve(addr2, depositValue.toString());   //set approve function as Feesharing contract.
+        console.log("Approving...please wait.");
+        await Txn.wait()
+
+        console.log(Txn)
+        
+            let a = await contractObject1.allowance(account, addr2);
+            console.log('------------------' + a);
+      }
+
 
       try {
-        let Txn = await scardustWeb1.methods.deposit(depositValue, true).send({from: account});//multipliedBy(10 ** 18)).send({from: account});
+        let Txn = await contractObject2.methods.deposit(depositValue, false).send({from: account});//multipliedBy(10 ** 18)).send({from: account});
         console.log(Txn)
         console.log('successfully deposited. ')
         NotificationManager.success('successfully deposited!');
@@ -112,15 +141,14 @@ function Staking() {
         console.log(chainId)
         setLoading(true)
 
-        let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
-        let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
+        
 
-        web3 = new Web3(library.provider)
   
-        scardustWeb1 = new web3.eth.Contract(metadata2, addr2)
+        web3 = new Web3(library.provider)
+        contractObject2 = new web3.eth.Contract(metadata2, addr2)
   
         try {
-            let Txn = await scardustWeb1.methods.withdraw(withdrawValue, true).send({from: account})
+            let Txn = await contractObject2.methods.withdraw(withdrawValue, true).send({from: account})
           console.log('successfully withdrawed. ')
           NotificationManager.success('successfully withdrawed!');
         } catch (err) {
@@ -138,15 +166,11 @@ function Staking() {
       console.log(chainId)
       setLoading(true)
 
-      let metadata2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.abi
-      let addr2 = CONTRACTS[CONTRACTS_TYPE.FEESHARING_SYSTEM][chainId]?.address
 
-      web3 = new Web3(library.provider)
-
-      scardustWeb1 = new web3.eth.Contract(metadata2, addr2)
+      contractObject2 = new web3.eth.Contract(metadata2, addr2)
 
       try {
-        let Txn = await scardustWeb1.methods.harvest().call()
+        let Txn = await contractObject2.methods.harvest().call()
         console.log('successfully harvested. ')
       } catch (err) {
         console.log(err.message)
@@ -171,21 +195,18 @@ function Staking() {
       
       setLoading(true)
 
-      let metadata4 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.abi
-      let addr4 = CONTRACTS[CONTRACTS_TYPE.SCARDUST_TOKEN][chainId]?.address
+
 
       web3 = new Web3(library.provider)
+      contractObject2 = new web3.eth.Contract(metadata0, addr0)
 
-      scardustWeb1 = new web3.eth.Contract(metadata4, addr4)
-
-      console.log(addr4, account);
 
       let depositValue = new BigNumber(stakeValue).multipliedBy(10 ** 18)
       console.log(depositValue.toString())
 
 
       try {
-        let balance = await scardustWeb1.methods.balanceOf(account).call({from: account});//multipliedBy(10 ** 18)).send({from: account});
+        let balance = await contractObject2.methods.balanceOf(account).call({from: account});//multipliedBy(10 ** 18)).send({from: account});
         let rate_balance = new BigNumber(balance / 4 * rate).dividedBy( 10 ** 18);
         setStakeValue(rate_balance);
       } catch (err) {
